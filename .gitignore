@@ -1,0 +1,37 @@
+# ========================
+# Unity generated folders
+# ========================
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# ========================
+# OS generated files
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# IDE / Editor files
+# ========================
+.vscode/
+.vs/
+.idea/
+*.csproj
+*.sln
+*.user
+*.userprefs
+
+# ========================
+# Unity crash reports
+# ========================
+sysinfo.txt
+
+# ========================
+# Addressables cache
+# ========================
+/Assets/AddressableAssetsData/*/*.bin*
