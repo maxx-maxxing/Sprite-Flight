@@ -7,6 +7,7 @@ public class Obstacle : MonoBehaviour
     public float maxSize = 2.0f;
     public float minSpeed = 50f;
     public float maxSpeed = 150f;
+    public float maxTorque = 10f;
     
     
     void Start()
@@ -20,6 +21,7 @@ public class Obstacle : MonoBehaviour
         /* ^^ Could expand to create an array or enum to
          randomize direction and amount. NO MAGIC NUMBERS.
          ".right" pushes everything to the +x direction */
+        rb.AddTorque(Random.Range(-maxTorque, maxTorque));
     }
 
     
