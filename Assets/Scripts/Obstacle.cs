@@ -18,9 +18,6 @@ public class Obstacle : MonoBehaviour
         float randomSpeed = Random.Range(minSpeed, maxSpeed) / randomSize; // variable editable in inspector
         Vector2 randomDirection = Random.insideUnitCircle;
         rb.AddForce(randomDirection * randomSpeed);
-        /* ^^ Could expand to create an array or enum to
-         randomize direction and amount. NO MAGIC NUMBERS.
-         ".right" pushes everything to the +x direction */
         rb.AddTorque(Random.Range(-maxTorque, maxTorque));
     }
 

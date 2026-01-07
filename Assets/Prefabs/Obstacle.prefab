@@ -189,5 +189,6 @@ MonoBehaviour:
   rb: {fileID: 1896725991266041556}
   minSize: 0.5
   maxSize: 2
-  minSpeed: 70
-  maxSpeed: 190
+  minSpeed: 110
+  maxSpeed: 170
+  maxTorque: 8
