@@ -190,5 +190,5 @@ MonoBehaviour:
   minSize: 0.5
   maxSize: 2
   minSpeed: 110
-  maxSpeed: 170
+  maxSpeed: 150
   maxTorque: 8
