@@ -609,6 +609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8e640df34a2de46b325119bc230dca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  thrustForce: 18
 --- !u!1 &577702061
 GameObject:
   m_ObjectHideFlags: 0
