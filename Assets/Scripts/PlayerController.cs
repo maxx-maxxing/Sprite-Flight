@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public float thrustForce = 1f;
     Rigidbody2D rb;
     public float maxSpeed = 5f;
+    public GameObject thruster;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,7 +42,16 @@ public class PlayerController : MonoBehaviour
                     
                 }
                 
-            }    
+            }
+
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                thruster.SetActive(true);
+            }
+            else if (Mouse.current.leftButton.wasReleasedThisFrame)
+            {
+                thruster.SetActive(false);
+            }
              
             
         }
