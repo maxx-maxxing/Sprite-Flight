@@ -36,4 +36,11 @@ public class PlayerController : MonoBehaviour
             
         }
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    // ^^ When player's RigidBody collides with ANY other collider
+    {
+        Destroy(gameObject);
+        // ^^ Delete "this" GameObject that this script belongs to
+    }
 }
