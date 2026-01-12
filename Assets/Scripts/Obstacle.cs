@@ -10,7 +10,7 @@ public class Obstacle : MonoBehaviour
     public float maxTorque = 10f;
 
 
-    void Awake()
+    void Awake() // Grab the rigidbody component before frame 1
     {
         rb =  GetComponent<Rigidbody2D>(); // ref to Obstacle's physics component
     }
@@ -18,11 +18,11 @@ public class Obstacle : MonoBehaviour
     void Start()
     {
         float randomSize = Random.Range(minSize, maxSize); // variable editable in inspector
-        transform.localScale = new Vector3(randomSize, randomSize, 1);
-        float randomSpeed = Random.Range(minSpeed, maxSpeed) / randomSize; // variable editable in inspector
-        Vector2 randomDirection = Random.insideUnitCircle.normalized;
-        rb.AddForce(randomDirection * randomSpeed);
-        rb.AddTorque(Random.Range(-maxTorque, maxTorque));
+        transform.localScale = new Vector3(randomSize, randomSize, 1); // change size on frame 1
+        float randomSpeed = Random.Range(minSpeed, maxSpeed) / randomSize; // small things affected by magn. more, big objects less so 
+        Vector2 randomDirection = Random.insideUnitCircle.normalized; // random direction within a circle (360 degrees)
+        rb.AddForce(randomDirection * randomSpeed); // Apply force in a direction at a speed
+        rb.AddTorque(Random.Range(-maxTorque, maxTorque)); // Apply a rotational force
     }
 
     
