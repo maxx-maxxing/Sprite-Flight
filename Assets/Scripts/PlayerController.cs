@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     public float thrustForce = 1f;
     Rigidbody2D rb;
+    public float maxSpeed = 5f;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +31,15 @@ public class PlayerController : MonoBehaviour
                 // ^^ The GameObjects Y will always = the positive vector calculated with each LMB press
                 rb.AddForce(direction * thrustForce);
                 // ^^ Push object the direction it's facing by thrustForce
+                if (rb.linearVelocity.magnitude > maxSpeed)
+                    /* ^^ In order to ensure the object doesn't have runaway speed,
+                     * we compare its speed each frame to maxSpeed. */
+                {
+                    rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+                    /* ^^ We set linearVelocity bc magnitude is Read-Only. Once we re-set the vector,
+                     magnitude is then independently calculated */
+                    
+                }
                 
             }    
              
