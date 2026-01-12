@@ -45,12 +45,14 @@ public class PlayerController : MonoBehaviour
             }
 
             if (Mouse.current.leftButton.wasPressedThisFrame)
+                // ^^ If LMB was pressed this frame (notice the no parameter syntax)
             {
-                thruster.SetActive(true);
+                thruster.SetActive(true); // Turn on thruster sprite
             }
             else if (Mouse.current.leftButton.wasReleasedThisFrame)
+                // ^^ If LMB was released this frame (notice the no parameter syntax)
             {
-                thruster.SetActive(false);
+                thruster.SetActive(false); // Turn off thruster sprite
             }
              
             
