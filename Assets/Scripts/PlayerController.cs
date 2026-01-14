@@ -30,8 +30,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        {
-            if (Mouse.current.leftButton.IsPressed())
+        UpdateScore();
+        MovePlayer();
+
+
+
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    // ^^ When player's RigidBody collides with ANY other collider
+    {
+        Destroy(gameObject);
+        // ^^ Delete "this" GameObject that this script belongs to
+    }
+
+    private void UpdateScore()
+    {
+        if (Mouse.current.leftButton.IsPressed())
                 // ^^ When left mouse button pressed, the GameObject needs to rotate to point where you are clicking
             {
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -67,20 +82,14 @@ public class PlayerController : MonoBehaviour
             {
                 thruster.SetActive(false); // Turn off thruster sprite
             }
-
-            time += Time.deltaTime; // Adds 1 to time every second, independent of framerate
-            score = Mathf.FloorToInt(time * scoreMultiplier);
-            // ^^ Converts score to int and updates score, every second
-
-            scoreText.text = $"Score: {score}";
-        }
-
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    // ^^ When player's RigidBody collides with ANY other collider
+    private void MovePlayer()
     {
-        Destroy(gameObject);
-        // ^^ Delete "this" GameObject that this script belongs to
+        time += Time.deltaTime; // Adds 1 to time every second, independent of framerate
+        score = Mathf.FloorToInt(time * scoreMultiplier);
+        // ^^ Converts score to int and updates score, every second
+
+        scoreText.text = $"Score: {score}";
     }
 }
