@@ -602,6 +602,7 @@ MonoBehaviour:
   maxSpeed: 10
   thruster: {fileID: 562769224}
   scoreMultiplier: 10
+  uiDocument: {fileID: 414769839}
 --- !u!1 &562769224
 GameObject:
   m_ObjectHideFlags: 0

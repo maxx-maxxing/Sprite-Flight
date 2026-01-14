@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,18 +11,27 @@ public class PlayerController : MonoBehaviour
     private float time = 0f;
     public float scoreMultiplier = 10f;
     private float score;
+    public UIDocument uiDocument;
+    /* ^^ Gives access to UILayout that we attached to the GameUI GameObject,
+     that we attached to the Player GameObject.
+     UILayout > GameUI > Player */
+    private Label scoreText;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        scoreText = uiDocument.rootVisualElement.Q<Label>("ScoreLabel");
+        /* ^^ Search the UILayout for a node called Label with the name "ScoreLabel"
+         and assign it to Label scoreText */
+
     }
 
     // Update is called once per frame
     void Update()
     {
         {
-            if(Mouse.current.leftButton.IsPressed())
+            if (Mouse.current.leftButton.IsPressed())
                 // ^^ When left mouse button pressed, the GameObject needs to rotate to point where you are clicking
             {
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -42,9 +52,9 @@ public class PlayerController : MonoBehaviour
                     rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
                     /* ^^ We set linearVelocity bc magnitude is Read-Only. Once we re-set the vector,
                      magnitude is then independently calculated */
-                    
+
                 }
-                
+
             }
 
             if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -57,12 +67,14 @@ public class PlayerController : MonoBehaviour
             {
                 thruster.SetActive(false); // Turn off thruster sprite
             }
-             
+
             time += Time.deltaTime; // Adds 1 to time every second, independent of framerate
             score = Mathf.FloorToInt(time * scoreMultiplier);
             // ^^ Converts score to int and updates score, every second
 
+            scoreText.text = $"Score: {score}";
         }
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
