@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     public float maxSpeed = 5f;
     public GameObject thruster;
+    private float time = 0f;
+    public float scoreMultiplier = 10f;
+    private float score;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -55,7 +58,10 @@ public class PlayerController : MonoBehaviour
                 thruster.SetActive(false); // Turn off thruster sprite
             }
              
-            
+            time += Time.deltaTime; // Adds 1 to time every second, independent of framerate
+            score = Mathf.FloorToInt(time * scoreMultiplier);
+            // ^^ Converts score to int and updates score, every second
+
         }
     }
 
