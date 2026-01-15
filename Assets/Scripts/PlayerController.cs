@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
      that we attached to the Player GameObject.
      UILayout > GameUI > Player */
     private Label scoreText;
+    /* ^^ Can only accept and store returns of type Label */
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -66,7 +67,7 @@ public class PlayerController : MonoBehaviour
                 {
                     rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
                     /* ^^ We set linearVelocity bc magnitude is Read-Only. Once we re-set the vector,
-                     magnitude is then independently calculated */
+                     magnitude is then dependently calculated */
 
                 }
 

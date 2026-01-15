@@ -17,11 +17,17 @@ public class Obstacle : MonoBehaviour
     
     void Start()
     {
-        float randomSize = Random.Range(minSize, maxSize); // variable editable in inspector
-        transform.localScale = new Vector3(randomSize, randomSize, 1); // change size on frame 1
-        float randomSpeed = Random.Range(minSpeed, maxSpeed) / randomSize; // small things affected by magn. more, big objects less so 
-        Vector2 randomDirection = Random.insideUnitCircle.normalized; // random direction within a circle (360 degrees)
-        rb.AddForce(randomDirection * randomSpeed); // Apply force in a direction at a speed
+        float randomSize = Random.Range(minSize, maxSize);
+        transform.localScale = new Vector3(randomSize, randomSize, 1);
+        // ^^ Even in 2D game, all transform properties utilize Vector3 types.
+        float randomSpeed = Random.Range(minSpeed, maxSpeed) / randomSize; 
+        // ^^ Small things affected by magn. more, big objects less so.
+        Vector2 randomDirection = Random.insideUnitCircle.normalized; 
+        /* ^^ Random vector inside a unit circle (all directions possible).
+           .normalized projects this vector outward to the circle's perimeter,
+           ensuring a magnitude of exactly 1 for consistent directional force. */
+        rb.AddForce(randomDirection * randomSpeed);
+        /* ^^ .AddForce(Vector2) => That's why direction * speed works. */
         rb.AddTorque(Random.Range(-maxTorque, maxTorque)); // Apply a rotational force
     }
 
