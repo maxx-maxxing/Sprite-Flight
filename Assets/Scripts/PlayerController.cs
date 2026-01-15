@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
@@ -12,8 +13,6 @@ public class PlayerController : MonoBehaviour
     public float scoreMultiplier = 10f;
     private float score;
     public UIDocument uiDocument;
-    
-
     public GameObject explosionEffect;
     /* ^^ Gives access to UILayout that we attached to the GameUI GameObject,
      that we attached to the Player GameObject.
@@ -33,6 +32,7 @@ public class PlayerController : MonoBehaviour
         restartButton = uiDocument.rootVisualElement.Q<Button>("RestartButton");
         /* ^^ Search the UILayout for a node called Button with the name "RestartButton"
          and assign it to Button restartButton */
+        restartButton.clicked += ReloadScene;
         restartButton.style.display = DisplayStyle.None;
 
     }
@@ -52,8 +52,10 @@ public class PlayerController : MonoBehaviour
     {
         Instantiate(explosionEffect, transform.position, transform.rotation);
         Destroy(gameObject);
-        restartButton.style.display = DisplayStyle.Flex;
         // ^^ Delete "this" GameObject that this script belongs to
+        restartButton.style.display = DisplayStyle.Flex;
+        
+        
     }
 
     private void UpdateScore()
@@ -104,4 +106,10 @@ public class PlayerController : MonoBehaviour
 
         scoreText.text = $"Score: {score}";
     }
+    
+    void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
 }
