@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public float scoreMultiplier = 10f;
     private float score;
     public UIDocument uiDocument;
+
+    public GameObject explosionEffect;
     /* ^^ Gives access to UILayout that we attached to the GameUI GameObject,
      that we attached to the Player GameObject.
      UILayout > GameUI > Player */
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     // ^^ When player's RigidBody collides with ANY other collider
     {
+        Instantiate(explosionEffect, transform.position, transform.rotation);
         Destroy(gameObject);
         // ^^ Delete "this" GameObject that this script belongs to
     }

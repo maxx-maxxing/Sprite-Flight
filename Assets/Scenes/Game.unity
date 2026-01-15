@@ -603,6 +603,7 @@ MonoBehaviour:
   thruster: {fileID: 562769224}
   scoreMultiplier: 10
   uiDocument: {fileID: 414769839}
+  explosionEffect: {fileID: 461246828745943015, guid: 3e6bcd7f1badd8c448c473f893b982df, type: 3}
 --- !u!1 &562769224
 GameObject:
   m_ObjectHideFlags: 0
