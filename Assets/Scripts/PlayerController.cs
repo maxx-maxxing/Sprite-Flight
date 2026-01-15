@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float scoreMultiplier = 10f;
     private float score;
     public UIDocument uiDocument;
+    
 
     public GameObject explosionEffect;
     /* ^^ Gives access to UILayout that we attached to the GameUI GameObject,
@@ -19,6 +20,8 @@ public class PlayerController : MonoBehaviour
      UILayout > GameUI > Player */
     private Label scoreText;
     /* ^^ Can only accept and store returns of type Label */
+    private Button restartButton;
+    /* ^^ Can only accept and store returns of type Button */
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,6 +30,10 @@ public class PlayerController : MonoBehaviour
         scoreText = uiDocument.rootVisualElement.Q<Label>("ScoreLabel");
         /* ^^ Search the UILayout for a node called Label with the name "ScoreLabel"
          and assign it to Label scoreText */
+        restartButton = uiDocument.rootVisualElement.Q<Button>("RestartButton");
+        /* ^^ Search the UILayout for a node called Button with the name "RestartButton"
+         and assign it to Button restartButton */
+        restartButton.style.display = DisplayStyle.None;
 
     }
 
@@ -45,6 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         Instantiate(explosionEffect, transform.position, transform.rotation);
         Destroy(gameObject);
+        restartButton.style.display = DisplayStyle.Flex;
         // ^^ Delete "this" GameObject that this script belongs to
     }
 
