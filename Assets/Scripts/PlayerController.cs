@@ -51,6 +51,9 @@ public class PlayerController : MonoBehaviour
     // ^^ When player's RigidBody collides with ANY other collider
     {
         Instantiate(explosionEffect, transform.position, transform.rotation);
+        /* ^^ transform.position places the ExplosionEffect prefab where
+         the Player GameObject is, and transform.rotation sets its 
+         rotation to match the Player GameObject’s rotation. */
         Destroy(gameObject);
         // ^^ Delete "this" GameObject that this script belongs to
         restartButton.style.display = DisplayStyle.Flex;
@@ -58,7 +61,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private void UpdateScore()
+    private void MovePlayer()
     {
         if (Mouse.current.leftButton.IsPressed())
                 // ^^ When left mouse button pressed, the GameObject needs to rotate to point where you are clicking
@@ -98,7 +101,7 @@ public class PlayerController : MonoBehaviour
             }
     }
 
-    private void MovePlayer()
+    private void UpdateScore()
     {
         time += Time.deltaTime; // Adds 1 to time every second, independent of framerate
         score = Mathf.FloorToInt(time * scoreMultiplier);

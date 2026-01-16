@@ -192,3 +192,5 @@ MonoBehaviour:
   minSpeed: 110
   maxSpeed: 150
   maxTorque: 8
+  impactEffectPrefab: {fileID: 7640289416661211488, guid: 6018198e16ee23844b3f4a2378d20f8e, type: 3}
+  impactEffectTimeToDestroy: 0.15

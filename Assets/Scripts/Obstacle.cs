@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
@@ -8,6 +9,9 @@ public class Obstacle : MonoBehaviour
     public float minSpeed = 50f;
     public float maxSpeed = 150f;
     public float maxTorque = 10f;
+    public GameObject impactEffectPrefab;
+    public float impactEffectTimeToDestroy = 1f;
+    
 
 
     void Awake() // Grab the rigidbody component before frame 1
@@ -31,7 +35,12 @@ public class Obstacle : MonoBehaviour
         rb.AddTorque(Random.Range(-maxTorque, maxTorque)); // Apply a rotational force
     }
 
-    
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Vector2 contactPoint = collision.GetContact(0).point;
+        GameObject impactEffect = Instantiate(impactEffectPrefab, contactPoint, Quaternion.identity);
+        Destroy(impactEffect, impactEffectTimeToDestroy);
+    }
     void Update()
     {
         
