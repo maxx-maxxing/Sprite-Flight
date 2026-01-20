@@ -14,6 +14,8 @@ public class Obstacle : MonoBehaviour
     public float obstacleSpeedLimit = 12f;
     public float obstacleAngularSpeedLimit = 360f; 
     /* ^^ Max spin speed in deg/sec (360 = 1 full rotation per second) */
+    public float minImpactScale = 0.5f;
+    public float maxImpactScale = 1.5f;
 
     void Awake() // Grab the rigidbody component before frame 1
     {
@@ -43,9 +45,35 @@ public class Obstacle : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        float mySpeed = rb.linearVelocity.magnitude;
+        Rigidbody2D otherRb = collision.otherRigidbody;
+        float otherSpeed = 0f;
+        if (otherRb != null)
+        {
+            otherSpeed = otherRb.linearVelocity.magnitude;
+        }
+
+        Obstacle otherObstacle = null;
+        if (otherRb != null)
+        {
+            otherObstacle = otherRb.GetComponent<Obstacle>();
+        }
+        
+        if (otherObstacle != null && otherSpeed > mySpeed)
+        {
+            return;
+        }
+        float impactSpeed = Mathf.Max(mySpeed, otherSpeed);
+        float t = Mathf.InverseLerp(0f, obstacleSpeedLimit, impactSpeed);
+        float impactScale = Mathf.Lerp(minImpactScale, maxImpactScale, t);
+        
+        
         Vector2 contactPoint = collision.GetContact(0).point;
         GameObject impactEffect = Instantiate(impactEffectPrefab, contactPoint, Quaternion.identity);
+        impactEffect.transform.localScale *= impactScale;
         Destroy(impactEffect, impactEffectTimeToDestroy);
+        
+
     }
 
     void FixedUpdate()
