@@ -189,8 +189,8 @@ MonoBehaviour:
   rb: {fileID: 1896725991266041556}
   minSize: 0.5
   maxSize: 2
-  minSpeed: 250
-  maxSpeed: 500
+  minSpeed: 150
+  maxSpeed: 300
   maxTorque: 5
   impactEffectPrefab: {fileID: 7640289416661211488, guid: 6018198e16ee23844b3f4a2378d20f8e, type: 3}
   impactEffectTimeToDestroy: 0.15

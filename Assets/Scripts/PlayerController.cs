@@ -34,17 +34,12 @@ public class PlayerController : MonoBehaviour
          and assign it to Button restartButton */
         restartButton.clicked += ReloadScene;
         restartButton.style.display = DisplayStyle.None;
-
     }
-
     // Update is called once per frame
     void Update()
     {
         UpdateScore();
         MovePlayer();
-
-
-
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -57,8 +52,6 @@ public class PlayerController : MonoBehaviour
         Destroy(gameObject);
         // ^^ Delete "this" GameObject that this script belongs to
         restartButton.style.display = DisplayStyle.Flex;
-        
-        
     }
 
     private void MovePlayer()
@@ -84,11 +77,8 @@ public class PlayerController : MonoBehaviour
                     rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
                     /* ^^ We set linearVelocity bc magnitude is Read-Only. Once we re-set the vector,
                      magnitude is then dependently calculated */
-
                 }
-
             }
-
             if (Mouse.current.leftButton.wasPressedThisFrame)
                 // ^^ If LMB was pressed this frame (notice the no parameter syntax)
             {
@@ -114,5 +104,4 @@ public class PlayerController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
 }

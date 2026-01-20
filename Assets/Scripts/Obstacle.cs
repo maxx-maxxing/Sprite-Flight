@@ -38,41 +38,67 @@ public class Obstacle : MonoBehaviour
         rb.AddTorque(Random.Range(-maxTorque, maxTorque));
         /* ^^ Apply a rotational force to get some spin. */
     }
-
+    
     void OnCollisionEnter2D(Collision2D collision)
     {
         float mySpeed = rb.linearVelocity.magnitude;
+        /* ^^ On collision, store this rb's speed */
+        
         Rigidbody2D otherRb = collision.otherRigidbody;
+        /* ^^ On collision, store the OTHER rb's RB */
+        
         float otherSpeed = 0f;
-        if (otherRb != null)
+        /* ^^ Instantiate otherSpeed for otherRb's speed */
+        
+        if (otherRb != null) // if the object rb collides with has a Rigidbody component...
         {
-            otherSpeed = otherRb.linearVelocity.magnitude;
+            otherSpeed = otherRb.linearVelocity.magnitude; // Set its speed
         }
 
         Obstacle otherObstacle = null;
-        if (otherRb != null)
+        
+        if (otherRb != null) // if the Other rb has an rb component..
         {
-            otherObstacle = otherRb.GetComponent<Obstacle>();
+            otherObstacle = otherRb.GetComponent<Obstacle>(); // otherObstacle is assigned Obstacle's script
         }
         
         if (otherObstacle != null && otherSpeed > mySpeed)
+            /* ^^ if otherObstacle was assigned the Obstacle script AND
+                  the other rb's speed > THIS rb's speed.. */
         {
-            return;
+            return; 
+            /* ^^ Do NOT do the rest of the code. Exit early.
+                  No impact particle effect occurs */
         }
         float impactSpeed = Mathf.Max(mySpeed, otherSpeed);
-        float t = Mathf.InverseLerp(0f, maxSpeed, impactSpeed);
-        t *= t;
-        float impactScale = Mathf.Lerp(minImpactScale, maxImpactScale, t);
+        /* ^^ impactSpeed is assigned the highest value btwn mySpeed and otherSpeed */
         
+        float t = Mathf.InverseLerp(0f, maxSpeed, impactSpeed);
+        /* ^^ InverseLerp(a, b, v) returns how far v is between a and b (0–1)
+              as a percentage */
+        
+        t *= t;
+        /* ^^ square t to minimize small impact particle effect,
+              and enhance big impact effects */
+        
+        float impactScale = Mathf.Lerp(minImpactScale, maxImpactScale, t);
+        /* ^^ impactScale is the numerical value of t% between minImpactScale
+           and maxImpactScale */
         
         Vector2 contactPoint = collision.GetContact(0).point;
-        GameObject impactEffect = Instantiate(impactEffectPrefab, contactPoint, Quaternion.identity);
-        impactEffect.transform.localScale *= impactScale;
-        Destroy(impactEffect, impactEffectTimeToDestroy);
+        /* ^^ Return the first contact point between the two objects colliding */
         
+        GameObject impactEffect = Instantiate(impactEffectPrefab, contactPoint, Quaternion.identity);
+        /* ^^ Create a new instance of the prefab at the aforereturned contactPoint with no rotation */
+        
+        impactEffect.transform.localScale *= impactScale;
+        /* ^^ Scale the size of the particle effect
+              if impactScale < 1.0f, effect is smaller than original size
+              if impactScale > 1.0f, effect is bigger than original size */
+        
+        Destroy(impactEffect, impactEffectTimeToDestroy);
+        /* ^^ Destroy the impact particle effect after x time */
     }
-
-    
 }
 
 
