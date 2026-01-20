@@ -456,6 +456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 414769840}
   - component: {fileID: 414769839}
+  - component: {fileID: 414769841}
   m_Layer: 5
   m_Name: GameUI
   m_TagString: Untagged
@@ -501,6 +502,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &414769841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414769838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe19c1fff81bf654c8edff194f91b0e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
+  scoreMultiplier: 10
 --- !u!1 &438367930
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,8 +732,7 @@ MonoBehaviour:
   thrustForce: 8
   maxSpeed: 11
   thruster: {fileID: 562769224}
-  scoreMultiplier: 10
-  uiDocument: {fileID: 414769839}
+  scoreManager: {fileID: 414769841}
   explosionEffect: {fileID: 461246828745943015, guid: 3e6bcd7f1badd8c448c473f893b982df, type: 3}
 --- !u!1 &562769224
 GameObject:

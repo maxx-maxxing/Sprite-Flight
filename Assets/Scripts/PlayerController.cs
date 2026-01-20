@@ -9,36 +9,18 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     public float maxSpeed = 5f;
     public GameObject thruster;
-    private float time = 0f;
-    public float scoreMultiplier = 10f;
-    private float score;
-    public UIDocument uiDocument;
+    public ScoreManager scoreManager;
     public GameObject explosionEffect;
-    /* ^^ Gives access to UILayout that we attached to the GameUI GameObject,
-     that we attached to the Player GameObject.
-     UILayout > GameUI > Player */
-    private Label scoreText;
-    /* ^^ Can only accept and store returns of type Label */
-    private Button restartButton;
-    /* ^^ Can only accept and store returns of type Button */
+
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        scoreText = uiDocument.rootVisualElement.Q<Label>("ScoreLabel");
-        /* ^^ Search the UILayout for a node called Label with the name "ScoreLabel"
-         and assign it to Label scoreText */
-        restartButton = uiDocument.rootVisualElement.Q<Button>("RestartButton");
-        /* ^^ Search the UILayout for a node called Button with the name "RestartButton"
-         and assign it to Button restartButton */
-        restartButton.clicked += ReloadScene;
-        restartButton.style.display = DisplayStyle.None;
     }
     // Update is called once per frame
     void Update()
     {
-        UpdateScore();
         MovePlayer();
     }
 
@@ -51,7 +33,14 @@ public class PlayerController : MonoBehaviour
          rotation to match the Player GameObject’s rotation. */
         Destroy(gameObject);
         // ^^ Delete "this" GameObject that this script belongs to
-        restartButton.style.display = DisplayStyle.Flex;
+        if (scoreManager != null)
+        {
+            scoreManager.OnPlayerDied();
+        }
+        else
+        {
+            Debug.LogError("PlayerController: scoreManager reference is not set.");
+        }
     }
 
     private void MovePlayer()
@@ -91,14 +80,7 @@ public class PlayerController : MonoBehaviour
             }
     }
 
-    private void UpdateScore()
-    {
-        time += Time.deltaTime; // Adds 1 to time every second, independent of framerate
-        score = Mathf.FloorToInt(time * scoreMultiplier);
-        // ^^ Converts score to int and updates score, every second
-
-        scoreText.text = $"Score: {score}";
-    }
+    
     
     void ReloadScene()
     {
