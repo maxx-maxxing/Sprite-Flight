@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
@@ -11,9 +10,6 @@ public class Obstacle : MonoBehaviour
     public float maxTorque = 10f;
     public GameObject impactEffectPrefab;
     public float impactEffectTimeToDestroy = 1f;
-    public float obstacleSpeedLimit = 12f;
-    public float obstacleAngularSpeedLimit = 360f; 
-    /* ^^ Max spin speed in deg/sec (360 = 1 full rotation per second) */
     public float minImpactScale = 0.5f;
     public float maxImpactScale = 1.5f;
 
@@ -64,7 +60,8 @@ public class Obstacle : MonoBehaviour
             return;
         }
         float impactSpeed = Mathf.Max(mySpeed, otherSpeed);
-        float t = Mathf.InverseLerp(0f, obstacleSpeedLimit, impactSpeed);
+        float t = Mathf.InverseLerp(0f, maxSpeed, impactSpeed);
+        t *= t;
         float impactScale = Mathf.Lerp(minImpactScale, maxImpactScale, t);
         
         
@@ -73,21 +70,9 @@ public class Obstacle : MonoBehaviour
         impactEffect.transform.localScale *= impactScale;
         Destroy(impactEffect, impactEffectTimeToDestroy);
         
-
     }
 
-    void FixedUpdate()
-    {
-        // --- Clamp linear speed ---
-        if (rb.linearVelocity.magnitude > obstacleSpeedLimit)
-            /* ^^ Prevent runaway linear speed by capping magnitude. */
-        {
-            rb.linearVelocity = rb.linearVelocity.normalized * obstacleSpeedLimit;
-            /* ^^ Keep same direction, cap magnitude to obstacleSpeedLimit. */
-        }
-
-        
-    }
+    
 }
 
 

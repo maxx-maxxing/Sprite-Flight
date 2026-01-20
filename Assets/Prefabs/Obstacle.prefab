@@ -107,8 +107,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0.18
-  m_AngularDamping: 0.1
+  m_LinearDamping: 0.007
+  m_AngularDamping: 0.007
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -189,12 +189,10 @@ MonoBehaviour:
   rb: {fileID: 1896725991266041556}
   minSize: 0.5
   maxSize: 2
-  minSpeed: 150
-  maxSpeed: 300
+  minSpeed: 250
+  maxSpeed: 500
   maxTorque: 5
   impactEffectPrefab: {fileID: 7640289416661211488, guid: 6018198e16ee23844b3f4a2378d20f8e, type: 3}
   impactEffectTimeToDestroy: 0.15
-  obstacleSpeedLimit: 210
-  obstacleAngularSpeedLimit: 360
-  minImpactScale: 0.3
-  maxImpactScale: 2
+  minImpactScale: 0.9
+  maxImpactScale: 2.5
