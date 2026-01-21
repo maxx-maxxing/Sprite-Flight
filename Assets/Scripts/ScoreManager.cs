@@ -1,49 +1,49 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;   // NEW – for reloading the scene
+using UnityEngine.SceneManagement;  
 
 public class ScoreManager : MonoBehaviour
 {
     public float scoreMultiplier = 10f;
-
     private float time = 0f;
     private int score = 0;
-
-    private UIDocument uiDocument;
+    private UIDocument uiDocument; 
     private Label scoreText;
     private Button restartButton;
-
-    private bool isGameOver;
+    private bool isGameOver; // defaults to false
 
     void Awake()
     {
         uiDocument = GetComponent<UIDocument>();
-/* Grab the UI Document on this GameObject.
-   (GameUI holds UIDocument + ScoreManager) */
+        /* Grab the UI Document on this (GameUI) GameObject.
+           (GameUI holds UIDocument + ScoreManager) */
 
         if (uiDocument != null)
+            // ^^ if uiDocument exists
         {
             var root = uiDocument.rootVisualElement;
             /* Root of the UI tree — from here we query labels/buttons. */
 
-            // --- SCORE LABEL ------------------------------------------------------
+            // --- SCORE LABEL ---
             scoreText = root.Q<Label>("ScoreLabel");
             /* Finds the UI label whose Name is "ScoreLabel"
                (set inside UI Builder). */
 
-            if (scoreText == null)
+            if (scoreText == null) 
+                // ^^ If successfully returned a Label named "ScoreLabel"
             {
                 Debug.LogError("ScoreManager: Could not find a Label named 'ScoreLabel' in the UIDocument.");
             }
 
-            // --- RESTART BUTTON ---------------------------------------------------
+            // --- RESTART BUTTON ---
             restartButton = root.Q<Button>("RestartButton");
             /* Finds the restart button by Name. Controls visibility + click. */
 
             if (restartButton != null)
+                // ^^ If successfully returned a Button named "RestartButton"
             {
                 restartButton.style.display = DisplayStyle.None;
-                /* Hide restart button at game start. */
+                /* ^^ Hide restart button at game start. */
 
                 restartButton.clicked += OnRestartClicked;
                 /* Register a function to run when button is clicked. */
@@ -90,10 +90,8 @@ public class ScoreManager : MonoBehaviour
     }
 
 
-
-// -------------------------------------------------------------------------
-// Called by PlayerController when the player collides and dies
-// -------------------------------------------------------------------------
+    
+// vv Called by PlayerController when the player collides and dies
     public void OnPlayerDied()
     {
         isGameOver = true;
@@ -105,12 +103,8 @@ public class ScoreManager : MonoBehaviour
             /* ^^ Reveal Restart button after game over. */
         }
     }
-
-
-
-// -------------------------------------------------------------------------
+    
 // Restart Button → Reload the current scene
-// -------------------------------------------------------------------------
     private void OnRestartClicked()
     {
         var scene = SceneManager.GetActiveScene();

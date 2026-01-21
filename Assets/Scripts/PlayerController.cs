@@ -33,13 +33,15 @@ public class PlayerController : MonoBehaviour
          rotation to match the Player GameObject’s rotation. */
         Destroy(gameObject);
         // ^^ Delete "this" GameObject that this script belongs to
-        if (scoreManager != null)
+        
+        if (scoreManager != null) // if scoreManager ref exists..
         {
-            scoreManager.OnPlayerDied();
+            scoreManager.OnPlayerDied(); // run OnPlayerDied() from that script
         }
         else
         {
             Debug.LogError("PlayerController: scoreManager reference is not set.");
+            /* ^^ Check PlayerController component for ScoreManager reference */
         }
     }
 
