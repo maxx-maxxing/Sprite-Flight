@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;  
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -8,11 +8,12 @@ public class ScoreManager : MonoBehaviour
     private float time = 0f;
     private int score = 0;
     private int highScore = 0;
-    private UIDocument uiDocument; 
+    private UIDocument uiDocument;
     private Label scoreText;
     private Button restartButton;
     private bool isGameOver; // defaults to false
     private Label highScoreText;
+    private const string HighScoreKey = "HighScore";
 
     void Awake()
     {
@@ -31,12 +32,12 @@ public class ScoreManager : MonoBehaviour
             /* Finds the UI label whose Name is "ScoreLabel"
                (set inside UI Builder). */
 
-            if (scoreText == null) 
+            if (scoreText == null)
                 // ^^ If unsuccessfully returned a Label named "ScoreLabel"
             {
                 Debug.LogError("ScoreManager: Could not find a Label named 'ScoreLabel' in the UIDocument.");
             }
-            
+
             highScoreText = root.Q<Label>("HighScoreLabel");
 
             if (highScoreText == null)
@@ -66,8 +67,13 @@ public class ScoreManager : MonoBehaviour
         {
             Debug.LogError("ScoreManager: UIDocument not found on GameUI.");
         }
-        
-        highScore = PlayerPrefs.GetInt("HighScore", 0);
+
+        highScore = PlayerPrefs.GetInt(HighScoreKey, 0);
+
+        if (highScoreText != null)
+        {
+            highScoreText.text = $"High Score: {highScore}";
+        }
     }
 
 
@@ -98,11 +104,11 @@ public class ScoreManager : MonoBehaviour
             scoreText.text = $"Score: {score}";
             /* ^^ Push new score into the UI. */
         }
-        
+
     }
 
 
-    
+
 // vv Called by PlayerController when the player collides and dies
     public void OnPlayerDied()
     {
@@ -114,12 +120,20 @@ public class ScoreManager : MonoBehaviour
             restartButton.style.display = DisplayStyle.Flex;
             /* ^^ Reveal Restart button after game over. */
         }
+
+
+        if (score > highScore)
+        {
+            highScore = score;
+            PlayerPrefs.SetInt("HighScore", highScore);
+            PlayerPrefs.Save();
+
+        }
+
         if (highScoreText != null)
         {
-            if (score > highScore)
-            {
-                highScoreText.text = $"High Score: {score}";
-            }
+            highScoreText.text = $"High Score: {highScore}";
+
         }
         /* We only update high score on death so the high score is constantly updating like the regular score tracker */
         
