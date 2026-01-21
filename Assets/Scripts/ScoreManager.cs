@@ -7,10 +7,12 @@ public class ScoreManager : MonoBehaviour
     public float scoreMultiplier = 10f;
     private float time = 0f;
     private int score = 0;
+    private int highScore = 0;
     private UIDocument uiDocument; 
     private Label scoreText;
     private Button restartButton;
     private bool isGameOver; // defaults to false
+    private Label highScoreText;
 
     void Awake()
     {
@@ -30,9 +32,16 @@ public class ScoreManager : MonoBehaviour
                (set inside UI Builder). */
 
             if (scoreText == null) 
-                // ^^ If successfully returned a Label named "ScoreLabel"
+                // ^^ If unsuccessfully returned a Label named "ScoreLabel"
             {
                 Debug.LogError("ScoreManager: Could not find a Label named 'ScoreLabel' in the UIDocument.");
+            }
+            
+            highScoreText = root.Q<Label>("HighScoreLabel");
+
+            if (highScoreText == null)
+            {
+                Debug.LogError("ScoreManager: Could not find a Label named 'HighScoreLabel' in the UIDocument.");
             }
 
             // --- RESTART BUTTON ---
@@ -57,6 +66,8 @@ public class ScoreManager : MonoBehaviour
         {
             Debug.LogError("ScoreManager: UIDocument not found on GameUI.");
         }
+        
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
     }
 
 
@@ -87,6 +98,7 @@ public class ScoreManager : MonoBehaviour
             scoreText.text = $"Score: {score}";
             /* ^^ Push new score into the UI. */
         }
+        
     }
 
 
@@ -102,6 +114,16 @@ public class ScoreManager : MonoBehaviour
             restartButton.style.display = DisplayStyle.Flex;
             /* ^^ Reveal Restart button after game over. */
         }
+        if (highScoreText != null)
+        {
+            if (score > highScore)
+            {
+                highScoreText.text = $"High Score: {score}";
+            }
+        }
+        /* We only update high score on death so the high score is constantly updating like the regular score tracker */
+        
+        
     }
     
 // Restart Button → Reload the current scene
