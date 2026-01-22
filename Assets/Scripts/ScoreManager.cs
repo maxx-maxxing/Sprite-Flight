@@ -18,8 +18,8 @@ public class ScoreManager : MonoBehaviour
     void Awake()
     {
         uiDocument = GetComponent<UIDocument>();
-        /* Grab the UI Document on this (GameUI) GameObject.
-           (GameUI holds UIDocument + ScoreManager) */
+        /* ^^ Grab the UI Document on this (GameUI) GameObject.
+              (GameUI holds UIDocument/Layout + ScoreManager) */
 
         if (uiDocument != null)
             // ^^ if uiDocument exists
@@ -47,7 +47,8 @@ public class ScoreManager : MonoBehaviour
 
             // --- RESTART BUTTON ---
             restartButton = root.Q<Button>("RestartButton");
-            /* Finds the restart button by Name. Controls visibility + click. */
+            /* ^^ Finds the UI button whose Name is "RestartButton"
+                  (set inside UI Builder). */
 
             if (restartButton != null)
                 // ^^ If successfully returned a Button named "RestartButton"
@@ -56,7 +57,8 @@ public class ScoreManager : MonoBehaviour
                 /* ^^ Hide restart button at game start. */
 
                 restartButton.clicked += OnRestartClicked;
-                /* Register a function to run when button is clicked. */
+                /* ^^ Restart game when clicked, but button will
+                      will not be visible at runtime */
             }
             else
             {
