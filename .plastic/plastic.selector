@@ -1,4 +1,0 @@
-repository "Sprite Flight/Sprite Flight@20066861093217@cloud"
-  path "/"
-    br "/main"
-    co "/main"
