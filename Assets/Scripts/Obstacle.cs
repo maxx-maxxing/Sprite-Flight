@@ -31,6 +31,7 @@ public class Obstacle : MonoBehaviour
         /* ^^ Random vector inside a unit circle (all directions possible).
            .normalized projects this vector outward to the circle's perimeter,
            ensuring a magnitude of exactly 1 for consistent directional force. */
+        
 
         rb.AddForce(randomDirection * randomSpeed);
         /* ^^ .AddForce(Vector2) => That's why direction * speed works. */

@@ -196,3 +196,4 @@ MonoBehaviour:
   impactEffectTimeToDestroy: 0.15
   minImpactScale: 0.9
   maxImpactScale: 2.5
+  obstacle: {fileID: 0}

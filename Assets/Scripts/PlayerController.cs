@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public GameObject thruster;
     public ScoreManager scoreManager;
     public GameObject explosionEffect;
+    public Transform spriteTransform;
+
 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,7 +29,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     // ^^ When player's RigidBody collides with ANY other collider
     {
-        Instantiate(explosionEffect, transform.position, transform.rotation);
+        Instantiate(explosionEffect, spriteTransform.position, transform.rotation);
         /* ^^ transform.position places the ExplosionEffect prefab where
          the Player GameObject is, and transform.rotation sets its 
          rotation to match the Player GameObject’s rotation. */
