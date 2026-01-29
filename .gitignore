@@ -35,3 +35,9 @@ sysinfo.txt
 # Addressables cache
 # ========================
 /Assets/AddressableAssetsData/*/*.bin*
+
+# ========================
+# Plastic SCM
+# ========================
+.plastic/
+
